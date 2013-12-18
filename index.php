@@ -9,13 +9,33 @@ if (isset($_POST['Registration'])) {
                     VALUES('{$_POST['Registration']['name']}',
                             '{$_POST['Registration']['email']}',
                             '$password')") or die(mysql_error());
-    echo 'success';
+    echo 'Регистрация прошла успешно!';
 }
+
+if(isset($_POST['Auth'])) {
+    $password = md5($_POST['Auth']['password']);
+    $query = mysql_query("SELECT * FROM users
+                        WHERE name = '{$_POST['Auth']['name']}' AND password = '$password'");
+    $user = mysql_fetch_assoc($query);
+    if ($user) {
+        $_SESSION['login'] = true;
+        $_SESSION['userName'] = $user['name'];
+    } else {
+        echo 'Повторно заполните форму';
+    }
+}
+if($_GET['exit']){
+    session_destroy();
+    header('Location: /');
+}
+
+if(!isset($_SESSION['login'])){
+    include('registrationForm.php');
+    include('loginForm.php');
+} else {
+    echo "Hi, ".$_SESSION['userName'] . '<br/><a href="/index.php?exit=1">Выход</a>';
+}
+
+
 ?>
 
-<form method="post" action="">
-    <input type="text" name="Registration[name]" placeholder="name" required/><br>
-    <input type="text" name="Registration[email]" placeholder="email" required/><br>
-    <input type="password" name="Registration[password]" placeholder="password" required/><br>
-    <input type="submit" name="submit" value="Register"/>
-</form>

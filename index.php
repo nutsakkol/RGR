@@ -1,41 +1,22 @@
 <?php
-include('db.php');
-
 session_start();
+include('./Methods.php');
 
-if (isset($_POST['Registration'])) {
-    $password = md5($_POST['Registration']['password']);
-    $query = mysql_query("INSERT INTO users(name,email,password)
-                    VALUES('{$_POST['Registration']['name']}',
-                            '{$_POST['Registration']['email']}',
-                            '$password')") or die(mysql_error());
-    echo 'Регистрация прошла успешно!';
-}
+$object = new Methods();
 
-if(isset($_POST['Auth'])) {
-    $password = md5($_POST['Auth']['password']);
-    $query = mysql_query("SELECT * FROM users
-                        WHERE name = '{$_POST['Auth']['name']}' AND password = '$password'");
-    $user = mysql_fetch_assoc($query);
-    if ($user) {
-        $_SESSION['login'] = true;
-        $_SESSION['userName'] = $user['name'];
-    } else {
-        echo 'Повторно заполните форму';
+if (isset($_POST['Auth'])) {
+    if ($object->auth($_POST['Auth'])) {
+        header('Refresh: 3;url=/');
     }
 }
-if($_GET['exit']){
+
+if(isset($_GET['logout'])){
     session_destroy();
     header('Location: /');
 }
 
-if(!isset($_SESSION['login'])){
-    include('registrationForm.php');
-    include('loginForm.php');
+if ($_SESSION['auth']) {
+    echo 'cool ' . $_SESSION['userName'] . '<a href="/index.php?logout">Выйти</a>';
 } else {
-    echo "Hi, ".$_SESSION['userName'] . '<br/><a href="/index.php?exit=1">Выход</a>';
+    include('view/login.php');
 }
-
-
-?>
-

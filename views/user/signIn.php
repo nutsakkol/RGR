@@ -5,12 +5,12 @@
     <form method="post" action="">
         <label for="name">Имя пользователя</label>
         <input id="name" type="text" name="Auth[name]" placeholder="Имя"
-               value="<?=$_POST['Auth']['name']?>"
+               value="<?=$data['name']?>"
                style="width: 100%" required/><br>
 
         <label for="pass">Пароль</label>
         <input id="pass" type="password" name="Auth[password]" placeholder="Пароль"
-               value="<?=$_POST['Auth']['password']?>"
+               value="<?=$data['password']?>"
                style="width: 100%" required/><br>
         <input type="submit" name="enter" style="width: 100%" value="Log In"/>
     </form>

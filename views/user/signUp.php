@@ -6,21 +6,21 @@
     <form method="post" action="">
         <label for="name">Имя пользователя</label>
         <input id="name" type="text" name="Registration[name]" style="width: 100%" placeholder="Имя"
-               value="<?= $_POST['Registration']['name'] ?>"
+               value="<?= $data['name'] ?>"
                required/><br>
         <label for="email">Почта</label>
         <input id="email" type="text" name="Registration[email]" style="width: 100%"
-               value="<?= $_POST['Registration']['email'] ?>"
+               value="<?= $data['email'] ?>"
                placeholder="user@example.com"
                required/><br>
         <label for="pass">Пароль</label>
         <input id="pass" type="password" name="Registration[password]" style="width: 100%"
-               value="<?= $_POST['Registration']['password'] ?>"
+               value="<?= $data['password'] ?>"
                placeholder="Пароль"
                required/><br>
         <label for="confirm_pass">Повторить пароль</label>
         <input id="confirm_pass" type="password" name="Registration[confirmPassword]"
-               value="<?= $_POST['Registration']['confirmPassword'] ?>"
+               value="<?= $data['confirmPassword'] ?>"
                style="width: 100%"
                placeholder="Повторить пароль"
                required/><br>

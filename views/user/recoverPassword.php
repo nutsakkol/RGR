@@ -4,7 +4,7 @@
     <form method="post" action="">
         <label for="email">Введите емайл</label>
         <input id="email" type="text" name="Recover[email]" placeholder="email" style="width: 100%"
-               value="<?= $_POST['Recover']['email'] ?>"
+               value="<?= $data['email'] ?>"
                required/><br>
         <input type="submit" name="enter" style="width: 100%" value="Log In"/>
     </form>
